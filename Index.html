@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Big Bite Crankbaits</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .banner {
+            width: 100%;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .banner img {
+            width: 100%;
+            height: auto;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 1em;
+        }
+        .product {
+            border: 1px solid #ddd;
+            margin: 1em;
+            padding: 1em;
+            max-width: 300px;
+            text-align: center;
+        }
+        .product img, .product video {
+            max-width: 100%;
+            height: auto;
+        }
+        .product h2 {
+            font-size: 1.5em;
+            margin: 0.5em 0;
+        }
+        .product p {
+            font-size: 1em;
+            margin: 0.5em 0;
+        }
+        .product button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 1em;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 0.5em;
+        }
+        .product button:hover {
+            background-color: #45a049;
+        }
+        .images {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 0.5em;
+        }
+        .images img {
+            max-width: 30%;
+            height: auto;
+        }
+        @media (max-width: 600px) {
+            .product {
+                max-width: 90%;
+            }
+            .images img {
+                max-width: 30%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <img src="images/bigbite.jpg" alt="Big Bite Crankbaits Banner">
+    </div>
+    <div class="container">
+        <div class="product">
+            <video controls>
+                <source src="videos/bait1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h2>Bait 1</h2>
+            <p>Price: $12.99</p>
+            <div class="images">
+                <img src="images/bait1_1.jpg" alt="Bait 1 Image 1">
+                <img src="images/bait1_2.jpg" alt="Bait 1 Image 2">
+                <img src="images/bait1_3.jpg" alt="Bait 1 Image 3">
+            </div>
+            <button onclick="orderBait('bait1')">Order Bait 1</button>
+        </div>
+        <div class="product">
+            <video controls>
+                <source src="videos/bait2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h2>Bait 2</h2>
+            <p>Price: $12.99</p>
+            <div class="images">
+                <img src="images/bait2_1.jpg" alt="Bait 2 Image 1">
+                <img src="images/bait2_2.jpg" alt="Bait 2 Image 2">
+                <img src="images/bait2_3.jpg" alt="Bait 2 Image 3">
+            </div>
+            <button onclick="orderBait('bait2')">Order Bait 2</button>
+        </div>
+        <div class="product">
+            <video controls>
+                <source src="videos/bait3.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h2>Bait 3</h2>
+            <p>Price: $12.99</p>
+            <div class="images">
+                <img src="images/bait3_1.jpg" alt="Bait 3 Image 1">
+                <img src="images/bait3_2.jpg" alt="Bait 3 Image 2">
+                <img src="images/bait3_3.jpg" alt="Bait 3 Image 3">
+            </div>
+            <button onclick="orderBait('bait3')">Order Bait 3</button>
+        </div>
+        <div class="product">
+            <video controls>
+                <source src="videos/bait4.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <h2>Bait 4</h2>
+            <p>Price: $12.99</p>
+            <div class="images">
+                <img src="images/bait4_1.jpg" alt="Bait 4 Image 1">
+                <img src="images/bait4_2.jpg" alt="Bait 4 Image 2">
+                <img src="images/bait4_3.jpg" alt="Bait 4 Image 3">
+            </div>
+            <button onclick="orderBait('bait4')">Order Bait 4</button>
+        </div>
+    </div>
+    <script>
+        function orderBait(bait) {
+            // Add PayPal link here
+            let paypalLink = '';
+            switch(bait) {
+                case 'bait1':
+                    paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX1';
+                    break;
+                case 'bait2':
+                    paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX2';
+                    break;
+                case 'bait3':
+                    paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX3';
+                    break;
+                case 'bait4':
+                    paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX4';
+                    break;
+                default:
+                    paypalLink = '';
+            }
+            window.location.href = paypalLink;
+        }
+    </script>
+</body>
+</html>
