@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Big Bite Crankbaits</title>
+    <link href="path/to/lightbox.css" rel="stylesheet" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -34,7 +35,7 @@
             max-width: 300px;
             text-align: center;
         }
-        .product img, .product video {
+        .product img, .product iframe {
             max-width: 100%;
             height: auto;
         }
@@ -63,8 +64,11 @@
             justify-content: space-around;
             margin-top: 0.5em;
         }
-        .images img {
+        .images a {
             max-width: 30%;
+        }
+        .images img {
+            max-width: 100%;
             height: auto;
         }
         @media (max-width: 600px) {
@@ -83,62 +87,51 @@
     </div>
     <div class="container">
         <div class="product">
-            <video controls>
-                <source src="videos/bait1.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID_1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <h2>Bait 1</h2>
             <p>Price: $12.99</p>
             <div class="images">
-                <img src="images/bait1_1.jpg" alt="Bait 1 Image 1">
-                <img src="images/bait1_2.jpg" alt="Bait 1 Image 2">
-                <img src="images/bait1_3.jpg" alt="Bait 1 Image 3">
+                <a href="images/bait1_1.jpg" data-lightbox="bait1" data-title="Bait 1 Image 1"><img src="images/bait1_1.jpg" alt="Bait 1 Image 1"></a>
+                <a href="images/bait1_2.jpg" data-lightbox="bait1" data-title="Bait 1 Image 2"><img src="images/bait1_2.jpg" alt="Bait 1 Image 2"></a>
+                <a href="images/bait1_3.jpg" data-lightbox="bait1" data-title="Bait 1 Image 3"><img src="images/bait1_3.jpg" alt="Bait 1 Image 3"></a>
             </div>
             <button onclick="orderBait('bait1')">Order Bait 1</button>
         </div>
         <div class="product">
-            <video controls>
-                <source src="videos/bait2.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID_2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <h2>Bait 2</h2>
             <p>Price: $12.99</p>
             <div class="images">
-                <img src="images/bait2_1.jpg" alt="Bait 2 Image 1">
-                <img src="images/bait2_2.jpg" alt="Bait 2 Image 2">
-                <img src="images/bait2_3.jpg" alt="Bait 2 Image 3">
+                <a href="images/bait2_1.jpg" data-lightbox="bait2" data-title="Bait 2 Image 1"><img src="images/bait2_1.jpg" alt="Bait 2 Image 1"></a>
+                <a href="images/bait2_2.jpg" data-lightbox="bait2" data-title="Bait 2 Image 2"><img src="images/bait2_2.jpg" alt="Bait 2 Image 2"></a>
+                <a href="images/bait2_3.jpg" data-lightbox="bait2" data-title="Bait 2 Image 3"><img src="images/bait2_3.jpg" alt="Bait 2 Image 3"></a>
             </div>
             <button onclick="orderBait('bait2')">Order Bait 2</button>
         </div>
         <div class="product">
-            <video controls>
-                <source src="videos/bait3.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID_3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <h2>Bait 3</h2>
             <p>Price: $12.99</p>
             <div class="images">
-                <img src="images/bait3_1.jpg" alt="Bait 3 Image 1">
-                <img src="images/bait3_2.jpg" alt="Bait 3 Image 2">
-                <img src="images/bait3_3.jpg" alt="Bait 3 Image 3">
+                <a href="images/bait3_1.jpg" data-lightbox="bait3" data-title="Bait 3 Image 1"><img src="images/bait3_1.jpg" alt="Bait 3 Image 1"></a>
+                <a href="images/bait3_2.jpg" data-lightbox="bait3" data-title="Bait 3 Image 2"><img src="images/bait3_2.jpg" alt="Bait 3 Image 2"></a>
+                <a href="images/bait3_3.jpg" data-lightbox="bait3" data-title="Bait 3 Image 3"><img src="images/bait3_3.jpg" alt="Bait 3 Image 3"></a>
             </div>
             <button onclick="orderBait('bait3')">Order Bait 3</button>
         </div>
         <div class="product">
-            <video controls>
-                <source src="videos/bait4.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
+            <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID_4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <h2>Bait 4</h2>
             <p>Price: $12.99</p>
             <div class="images">
-                <img src="images/bait4_1.jpg" alt="Bait 4 Image 1">
-                <img src="images/bait4_2.jpg" alt="Bait 4 Image 2">
-                <img src="images/bait4_3.jpg" alt="Bait 4 Image 3">
+                <a href="images/bait4_1.jpg" data-lightbox="bait4" data-title="Bait 4 Image 1"><img src="images/bait4_1.jpg" alt="Bait 4 Image 1"></a>
+                <a href="images/bait4_2.jpg" data-lightbox="bait4" data-title="Bait 4 Image 2"><img src="images/bait4_2.jpg" alt="Bait 4 Image 2"></a>
+                <a href="images/bait4_3.jpg" data-lightbox="bait4" data-title="Bait 4 Image 3"><img src="images/bait4_3.jpg" alt="Bait 4 Image 3"></a>
             </div>
             <button onclick="orderBait('bait4')">Order Bait 4</button>
         </div>
     </div>
+    <script src="path/to/lightbox.js"></script>
     <script>
         function orderBait(bait) {
             // Add PayPal link here
