@@ -1,8 +1,1 @@
-<<<<<<< HEAD
-echo "www.bigbitecrankbaits.com" > CNAME
-git add CNAME
-git commit -m "Add custom domain"
-git push origin main
-=======
 www.bigbitecrankbaits.com
->>>>>>> 568bf486f7ec30d8e59572ed3b34f15382b9c1ce
