@@ -130,6 +130,17 @@
             </div>
             <button onclick="orderBait('bait4')">Order Bait 4</button>
         </div>
+        <div class="product">
+            <iframe src="https://youtube.com/embed/RQnF7Wx1L_o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <h2>Kids Build A Crankbait Kit</h2>
+            <p>Price: $4.00</p>
+            <div class="images">
+                <a href="Images/bait5_1.jpg" data-lightbox="bait5" data-title="Bait 5 Image 1"><img src="Images/bait5_1.jpg" alt="Bait 5 Image 1"></a>
+                <a href="Images/bait5_2.jpg" data-lightbox="bait5" data-title="Bait 5 Image 2"><img src="Images/bait5_2.jpg" alt="Bait 5 Image 2"></a>
+                <a href="Images/bait5_3.jpg" data-lightbox="bait5" data-title="Bait 5 Image 3"><img src="Images/bait5_3.jpg" alt="Bait 5 Image 3"></a>
+            </div>
+            <button onclick="orderBait('bait5')">Order Kids Crankbait Kit</button>
+        </div>
     </div>
     <script src="path/to/lightbox.js"></script>
     <script>
@@ -149,12 +160,14 @@
                 case 'bait4':
                     paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX4';
                     break;
+                case 'bait5':
+                    paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX5';
+                    break;
                 default:
                     paypalLink = '';
             }
             window.location.href = paypalLink;
         }
     </script>
-
 </body>
 </html>
