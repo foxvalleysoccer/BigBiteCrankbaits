@@ -17,9 +17,14 @@
             text-align: center;
             overflow: hidden;
             position: relative;
-            height: 200px; /* Set a specific height */
+            height: auto; /* Set height to auto */
         }
- 
+        .banner img {
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            display: block;
+            margin: 0 auto;
+        }
         .container {
             display: flex;
             flex-wrap: wrap;
@@ -93,10 +98,10 @@
                 <a href="Images/bait1_2.jpg" data-lightbox="bait1" data-title="Bait 1 Image 2"><img src="Images/bait1_2.jpg" alt="Bait 1 Image 2"></a>
                 <a href="Images/bait1_3.jpg" data-lightbox="bait1" data-title="Bait 1 Image 3"><img src="Images/bait1_3.jpg" alt="Bait 1 Image 3"></a>
             </div>
-            <button>Coming Soon</button>
+            <button onclick="orderBait('bait1')">Order Bait 1</button>
         </div>
         <div class="product">
-            <iframe src="https://youtube.com/embed/06ihsBb1LbU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID_2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <h2>HeadLights</h2>
             <p>Price: $12.99</p>
             <div class="images">
@@ -104,18 +109,18 @@
                 <a href="Images/bait2_2.jpg" data-lightbox="bait2" data-title="Bait 2 Image 2"><img src="Images/bait2_2.jpg" alt="Bait 2 Image 2"></a>
                 <a href="Images/bait2_3.jpg" data-lightbox="bait2" data-title="Bait 2 Image 3"><img src="Images/bait2_3.jpg" alt="Bait 2 Image 3"></a>
             </div>
-            <button>Coming Soon</button>
+            <button onclick="orderBait('bait2')">Order Bait 2</button>
         </div>
         <div class="product">
-            <iframe src="https://youtube.com/embed/AWbVVpbRbk4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <h2>Little Fry</h2>
+            <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID_3" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <h2>Frey Guy</h2>
             <p>Price: $12.99</p>
             <div class="images">
                 <a href="Images/bait3_1.jpg" data-lightbox="bait3" data-title="Bait 3 Image 1"><img src="Images/bait3_1.jpg" alt="Bait 3 Image 1"></a>
                 <a href="Images/bait3_2.jpg" data-lightbox="bait3" data-title="Bait 3 Image 2"><img src="Images/bait3_2.jpg" alt="Bait 3 Image 2"></a>
                 <a href="Images/bait3_3.jpg" data-lightbox="bait3" data-title="Bait 3 Image 3"><img src="Images/bait3_3.jpg" alt="Bait 3 Image 3"></a>
             </div>
-            <button>Coming Soon</button>
+            <button onclick="orderBait('bait3')">Order Bait 3</button>
         </div>
         <div class="product">
             <iframe src="https://www.youtube.com/embed/YOUTUBE_VIDEO_ID_4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -126,7 +131,7 @@
                 <a href="Images/bait4_2.jpg" data-lightbox="bait4" data-title="Bait 4 Image 2"><img src="Images/bait4_2.jpg" alt="Bait 4 Image 2"></a>
                 <a href="Images/bait4_3.jpg" data-lightbox="bait4" data-title="Bait 4 Image 3"><img src="Images/bait4_3.jpg" alt="Bait 4 Image 3"></a>
             </div>
-            <button>Coming Soon</button>
+            <button onclick="orderBait('bait4')">Order Bait 4</button>
         </div>
         <div class="product">
             <iframe src="https://youtube.com/embed/RQnF7Wx1L_o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -137,7 +142,7 @@
                 <a href="Images/bait5_2.jpg" data-lightbox="bait5" data-title="Bait 5 Image 2"><img src="Images/bait5_2.jpg" alt="Bait 5 Image 2"></a>
                 <a href="Images/bait5_3.jpg" data-lightbox="bait5" data-title="Bait 5 Image 3"><img src="Images/bait5_3.jpg" alt="Bait 5 Image 3"></a>
             </div>
-            <button>Coming Soon</button>
+            <button onclick="orderBait('bait5')">Order Kids Crankbait Kit</button>
         </div>
     </div>
     <script src="path/to/lightbox.js"></script>
