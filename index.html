@@ -74,14 +74,26 @@
             max-width: 100%;
             height: auto;
         }
-        @media (max-width: 600px) {
-            .product {
-                max-width: 90%;
-            }
-            .images img {
-                max-width: 30%;
-            }
-        }
+        .page-wrapper {
+    width: 80%; /* Set the width to 80% of the page on larger screens */
+    max-width: 1200px; /* Maximum width for larger screens */
+    margin: 0 auto; /* Center the frame on the page */
+    padding: 1em;
+    border: 2px solid #333; /* Frame around the entire page */
+    background-color: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+    border-radius: 10px; /* Round the corners of the page frame */
+}
+
+@media (max-width: 767px) {
+    .page-wrapper {
+        width: 100%; /* Make the width full on smaller screens */
+        padding: 0.5em; /* Adjust padding for smaller screens */
+        border-radius: 0; /* Remove rounded corners for full width on mobile */
+        box-shadow: none; /* Optional: Remove shadow on mobile for a cleaner look */
+    }
+}
+
     </style>
 </head>
 <body>
