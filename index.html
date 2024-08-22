@@ -119,7 +119,7 @@ body {
 }
 
 .page-wrapper {
-    width: 80%; /* Set the width to 80% of the page on larger screens */
+    width: 80%; /* Default width for larger screens */
     max-width: 1200px; /* Maximum width for larger screens */
     margin: 0 auto; /* Center the frame on the page */
     padding: 1em;
@@ -131,12 +131,28 @@ body {
 
 @media (max-width: 767px) {
     .page-wrapper {
-        width: 100%; /* Make the width full on smaller screens */
-        padding: 0.5em; /* Adjust padding for smaller screens */
+        width: 100%; /* Full width on smaller screens */
+        padding: 0.5em;
+        border-radius: 0;
+        box-shadow: none; /* Optional: Remove shadow on mobile */
+    }
+    
+    .container {
+        width: 100%; /* Make the container full width on mobile */
+        padding: 0;
+        box-shadow: none; /* Optional: Remove shadow for a cleaner look on mobile */
         border-radius: 0; /* Remove rounded corners for full width on mobile */
-        box-shadow: none; /* Optional: Remove shadow on mobile for a cleaner look */
+    }
+
+    .product {
+        width: 100%; /* Expand bait details to full width on mobile */
+        margin: 0.5em 0; /* Adjust margins for mobile */
+        padding: 1em; /* Keep padding consistent */
+        box-shadow: none; /* Optional: Remove shadow on mobile */
+        border-radius: 0; /* Remove rounded corners for full width on mobile */
     }
 }
+
 
 
     </style>
