@@ -29,7 +29,6 @@ body {
     border-radius: 10px;
 }
 .banner {
-    width: 100%;
     text-align: center;
     padding: 20px 0;
 }
@@ -40,13 +39,18 @@ body {
     display: block;
     margin: 0 auto;
 }
+.section-title {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2em;
+    color: #333;
+}
 .container {
-    clear: both;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1em;
-    margin-top: 20px;
+    margin-bottom: 40px;
 }
 .product {
     border: 1px solid #ddd;
@@ -99,7 +103,6 @@ body {
     height: auto;
     border-radius: 5px;
 }
-/* Footer */
 .footer {
     margin-top: auto;
     padding: 1em;
@@ -117,6 +120,23 @@ body {
 .footer a:hover {
     text-decoration: underline;
 }
+.social-icons img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+
+.social-icons img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+
 @media (max-width: 767px) {
     .page-wrapper {
         width: 95%;
@@ -139,93 +159,86 @@ body {
     </style>
 </head>
 <body>
-    <div class="page-wrapper">
-        <div class="banner">
-            <img src="Images/bigbite.png" alt="Big Bite Crankbaits Banner">
-        </div>
+<div class="page-wrapper">
+    <div class="banner">
+        <img src="Images/bigbite.png" alt="Big Bite Crankbaits Banner">
+    </div>
 
-        <div class="container">
-            <!-- Product 1 -->
-            <div class="product">
-                <iframe src="https://youtube.com/embed/02eQOpUvIbM" frameborder="0" allowfullscreen></iframe>
-                <h2>Red Dead Eye</h2>
-                <p>Price: $11.99</p>
-                <div class="images">
-                    <a href="Images/bait1_1.jpg" data-lightbox="bait1" data-title="Bait 1 Image 1"><img src="Images/bait1_1.jpg" alt="Bait 1 Image 1"></a>
-                    <a href="Images/bait1_2.jpg" data-lightbox="bait1" data-title="Bait 1 Image 2"><img src="Images/bait1_2.jpg" alt="Bait 1 Image 2"></a>
-                    <a href="Images/bait1_3.jpg" data-lightbox="bait1" data-title="Bait 1 Image 3"><img src="Images/bait1_3.jpg" alt="Bait 1 Image 3"></a>
-                </div>
-                <button>Sold Out</button>
+    <h2 class="section-title">Current Baits For Sale</h2>
+    <div class="container">
+        <!-- Example Product Available -->
+        <div class="product">
+            <iframe src="https://youtube.com/embed/RQnF7Wx1L_o" frameborder="0" allowfullscreen></iframe>
+            <h2>Build A Crankbait Kit</h2>
+            <p>Price: $5.00</p>
+            <div class="images">
+                <a href="Images/bait5_1.jpg" data-lightbox="bait5"><img src="Images/bait5_1.jpg" alt="Bait 5"></a>
+                <a href="Images/bait5_2.jpg" data-lightbox="bait5"><img src="Images/bait5_2.jpg" alt="Bait 5"></a>
+                <a href="Images/bait5_3.jpg" data-lightbox="bait5"><img src="Images/bait5_3.jpg" alt="Bait 5"></a>
             </div>
-
-            <!-- Product 2 -->
-            <div class="product">
-                <iframe src="https://youtube.com/embed/06ihsBb1LbU" frameborder="0" allowfullscreen></iframe>
-                <h2>HeadLights</h2>
-                <p>Price: $12.99</p>
-                <div class="images">
-                    <a href="Images/bait2_1.jpg" data-lightbox="bait2" data-title="Bait 2 Image 1"><img src="Images/bait2_1.jpg" alt="Bait 2 Image 1"></a>
-                    <a href="Images/bait2_2.jpg" data-lightbox="bait2" data-title="Bait 2 Image 2"><img src="Images/bait2_2.jpg" alt="Bait 2 Image 2"></a>
-                    <a href="Images/bait2_3.jpg" data-lightbox="bait2" data-title="Bait 2 Image 3"><img src="Images/bait2_3.jpg" alt="Bait 2 Image 3"></a>
-                </div>
-                <button>Sold Out</button>
-            </div>
-
-            <!-- Product 3 -->
-            <div class="product">
-                <iframe src="https://youtube.com/embed/AWbVVpbRbk4" frameborder="0" allowfullscreen></iframe>
-                <h2>Frey Guy</h2>
-                <p>Price: $12.99</p>
-                <div class="images">
-                    <a href="Images/bait3_1.jpg" data-lightbox="bait3" data-title="Bait 3 Image 1"><img src="Images/bait3_1.jpg" alt="Bait 3 Image 1"></a>
-                    <a href="Images/bait3_2.jpg" data-lightbox="bait3" data-title="Bait 3 Image 2"><img src="Images/bait3_2.jpg" alt="Bait 3 Image 2"></a>
-                    <a href="Images/bait3_3.jpg" data-lightbox="bait3" data-title="Bait 3 Image 3"><img src="Images/bait3_3.jpg" alt="Bait 3 Image 3"></a>
-                </div>
-                <button>Sold Out</button>
-            </div>
-
-            <!-- Product 4 -->
-            <div class="product">
-                <iframe src="https://youtube.com/embed/FE15iTcXpOA" frameborder="0" allowfullscreen></iframe>
-                <h2>The Diggler</h2>
-                <p>Price: $12.99</p>
-                <div class="images">
-                    <a href="Images/bait4_1.jpg" data-lightbox="bait4" data-title="Bait 4 Image 1"><img src="Images/bait4_1.jpg" alt="Bait 4 Image 1"></a>
-                    <a href="Images/bait4_2.jpg" data-lightbox="bait4" data-title="Bait 4 Image 2"><img src="Images/bait4_2.jpg" alt="Bait 4 Image 2"></a>
-                    <a href="Images/bait4_3.jpg" data-lightbox="bait4" data-title="Bait 4 Image 3"><img src="Images/bait4_3.jpg" alt="Bait 4 Image 3"></a>
-                </div>
-                <button>Sold Out</button>
-            </div>
-
-            <!-- Product 5 -->
-            <div class="product">
-                <iframe src="https://youtube.com/embed/RQnF7Wx1L_o" frameborder="0" allowfullscreen></iframe>
-                <h2>Build A Crankbait Kit</h2>
-                <p>Price: $5.00</p>
-                <div class="images">
-                    <a href="Images/bait5_1.jpg" data-lightbox="bait5" data-title="Bait 5 Image 1"><img src="Images/bait5_1.jpg" alt="Bait 5 Image 1"></a>
-                    <a href="Images/bait5_2.jpg" data-lightbox="bait5" data-title="Bait 5 Image 2"><img src="Images/bait5_2.jpg" alt="Bait 5 Image 2"></a>
-                    <a href="Images/bait5_3.jpg" data-lightbox="bait5" data-title="Bait 5 Image 3"><img src="Images/bait5_3.jpg" alt="Bait 5 Image 3"></a>
-                </div>
-                <form action="https://www.paypal.com/ncp/payment/JKE5XH4T77MYJ" method="post" target="_top" style="margin-top:10px;">
-                    <input style="background-color:#FFD140;color:#000;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;" type="submit" value="Buy Now" />
-                </form>
-            </div>
-
+            <form action="https://www.paypal.com/ncp/payment/JKE5XH4T77MYJ" method="post" target="_top" style="margin-top:10px;">
+                <input style="background-color:#FFD140;color:#000;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;" type="submit" value="Buy Now">
+            </form>
         </div>
     </div>
 
-    <div class="footer">
-        <p>Follow us: 
-            <a href="https://www.pinterest.com/BigBiteCrankbaits" target="_blank">Pinterest</a> | 
-            <a href="https://www.facebook.com/groups/bigbitecrankbaits" target="_blank">Facebook Group</a> | 
-            <a href="https://www.instagram.com/bigbitecrankbaits/" target="_blank">Instagram</a> | 
-            <a href="https://www.youtube.com/@wisconsinfishing772" target="_blank">YouTube</a>
-        </p>
-        <p>Copyright © 2025 Big Bite Crankbaits</p>
+    <h2 class="section-title">Past Baits (Sold Out)</h2>
+    <div class="container">
+        <!-- Example Sold Bait -->
+        <div class="product">
+            <iframe src="https://youtube.com/embed/02eQOpUvIbM" frameborder="0" allowfullscreen></iframe>
+            <h2>Red Dead Eye</h2>
+            <p>Sold Out</p>
+            <div class="images">
+                <a href="Images/bait1_1.jpg" data-lightbox="bait1"><img src="Images/bait1_1.jpg" alt="Bait 1"></a>
+                <a href="Images/bait1_2.jpg" data-lightbox="bait1"><img src="Images/bait1_2.jpg" alt="Bait 1"></a>
+                <a href="Images/bait1_3.jpg" data-lightbox="bait1"><img src="Images/bait1_3.jpg" alt="Bait 1"></a>
+            </div>
+        </div>
+        <div class="product">
+            <iframe src="https://youtube.com/embed/06ihsBb1LbU" frameborder="0" allowfullscreen></iframe>
+            <h2>HeadLights</h2>
+            <p>Sold Out</p>
+            <div class="images">
+                <a href="Images/bait2_1.jpg" data-lightbox="bait2"><img src="Images/bait2_1.jpg" alt="Bait 2"></a>
+                <a href="Images/bait2_2.jpg" data-lightbox="bait2"><img src="Images/bait2_2.jpg" alt="Bait 2"></a>
+                <a href="Images/bait2_3.jpg" data-lightbox="bait2"><img src="Images/bait2_3.jpg" alt="Bait 2"></a>
+            </div>
+        </div>
+        <div class="product">
+            <iframe src="https://youtube.com/embed/AWbVVpbRbk4" frameborder="0" allowfullscreen></iframe>
+            <h2>Frey Guy</h2>
+            <p>Sold Out</p>
+            <div class="images">
+                <a href="Images/bait3_1.jpg" data-lightbox="bait3"><img src="Images/bait3_1.jpg" alt="Bait 3"></a>
+                <a href="Images/bait3_2.jpg" data-lightbox="bait3"><img src="Images/bait3_2.jpg" alt="Bait 3"></a>
+                <a href="Images/bait3_3.jpg" data-lightbox="bait3"><img src="Images/bait3_3.jpg" alt="Bait 3"></a>
+            </div>
+        </div>
+        <div class="product">
+            <iframe src="https://youtube.com/embed/FE15iTcXpOA" frameborder="0" allowfullscreen></iframe>
+            <h2>The Diggler</h2>
+            <p>Sold Out</p>
+            <div class="images">
+                <a href="Images/bait4_1.jpg" data-lightbox="bait4"><img src="Images/bait4_1.jpg" alt="Bait 4"></a>
+                <a href="Images/bait4_2.jpg" data-lightbox="bait4"><img src="Images/bait4_2.jpg" alt="Bait 4"></a>
+                <a href="Images/bait4_3.jpg" data-lightbox="bait4"><img src="Images/bait4_3.jpg" alt="Bait 4"></a>
+            </div>
+        </div>
     </div>
-    
+</div>
 
-    <script src="path/to/lightbox.js"></script>
+<div class="footer">
+    <p>Follow us:</p>
+    <p class="social-icons">
+        <a href="https://www.pinterest.com/BigBiteCrankbaits" target="_blank"><img src="Images/pinterest.png" alt="Pinterest"></a>
+        <a href="https://www.facebook.com/groups/bigbitecrankbaits" target="_blank"><img src="Images/facebook.png" alt="Facebook"></a>
+        <a href="https://www.instagram.com/bigbitecrankbaits/" target="_blank"><img src="Images/Instagram_icon.png" alt="Instagram"></a>
+        <a href="https://www.youtube.com/@wisconsinfishing772" target="_blank"><img src="Images/YouTube_icon.png" alt="YouTube"></a>
+    </p>
+    <p>Copyright © 2025 Big Bite Crankbaits</p>
+</div>
+
+<script src="path/to/lightbox.js"></script>
 </body>
 </html>
