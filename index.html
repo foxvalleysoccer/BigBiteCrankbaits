@@ -6,22 +6,22 @@
     <title>Big Bite Crankbaits</title>
     <link href="path/to/lightbox.css" rel="stylesheet" />
     <style>
-      /* Reset any margin or padding issues */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-
 .page-wrapper {
     width: 80%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 1em;
     border: 2px solid #333;
     background-color: #fff;
@@ -31,34 +31,25 @@ body {
 .banner {
     width: 100%;
     text-align: center;
-    padding: 20px 0; /* Add padding to give some space above and below the image */
-    margin-bottom: 20px;
+    padding: 20px 0;
 }
-
 .banner img {
-    width: 80%; /* Adjust the width as needed */
+    width: 80%;
     height: auto;
-    border-radius: 10px; /* Keep the rounded corners on the image */
+    border-radius: 10px;
     display: block;
-    margin: 0 auto; /* Center the image */
+    margin: 0 auto;
 }
-
-
 .container {
     clear: both;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    padding: 1em;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; /* Ensure there’s space after the banner */
-    border-radius: 10px;
+    gap: 1em;
+    margin-top: 20px;
 }
-
 .product {
     border: 1px solid #ddd;
-    margin: 1em;
     padding: 1em;
     max-width: 300px;
     text-align: center;
@@ -66,26 +57,21 @@ body {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
-
 .product img,
 .product iframe {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
 }
-
 .product h2 {
     font-size: 1.5em;
     margin: 0.5em 0;
     color: #333;
 }
-
 .product p {
     font-size: 1em;
-    margin: 0.5em 0;
     color: #666;
 }
-
 .product button {
     background-color: #4CAF50;
     color: white;
@@ -97,64 +83,59 @@ body {
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
-
 .product button:hover {
     background-color: #45a049;
 }
-
 .images {
     display: flex;
     justify-content: space-around;
     margin-top: 0.5em;
 }
-
 .images a {
     max-width: 30%;
 }
-
 .images img {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
 }
-
-.page-wrapper {
-    width: 80%; /* Default width for larger screens */
-    max-width: 1200px; /* Maximum width for larger screens */
-    margin: 0 auto; /* Center the frame on the page */
+/* Footer */
+.footer {
+    margin-top: auto;
     padding: 1em;
-    border: 2px solid #333; /* Frame around the entire page */
-    background-color: #fff;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
-    border-radius: 10px; /* Round the corners of the page frame */
+    text-align: center;
+    background-color: #333;
+    color: white;
+    font-size: 0.9em;
+    border-radius: 10px;
 }
-
+.footer a {
+    color: #FFD140;
+    text-decoration: none;
+    margin: 0 10px;
+}
+.footer a:hover {
+    text-decoration: underline;
+}
 @media (max-width: 767px) {
     .page-wrapper {
-        width: 100%; /* Full width on smaller screens */
+        width: 95%;
+        margin: 10px auto;
         padding: 0.5em;
         border-radius: 0;
-        box-shadow: none; /* Optional: Remove shadow on mobile */
+        box-shadow: none;
     }
-    
     .container {
-        width: 100%; /* Make the container full width on mobile */
-        padding: 0;
-        box-shadow: none; /* Optional: Remove shadow for a cleaner look on mobile */
-        border-radius: 0; /* Remove rounded corners for full width on mobile */
+        flex-direction: column;
+        align-items: center;
     }
-
     .product {
-        width: 100%; /* Expand bait details to full width on mobile */
-        margin: 0.5em 0; /* Adjust margins for mobile */
-        padding: 1em; /* Keep padding consistent */
-        box-shadow: none; /* Optional: Remove shadow on mobile */
-        border-radius: 0; /* Remove rounded corners for full width on mobile */
+        width: 90%;
+        margin: 0.5em 0;
+        padding: 1em;
+        box-shadow: none;
     }
 }
-
-
-
     </style>
 </head>
 <body>
@@ -162,9 +143,11 @@ body {
         <div class="banner">
             <img src="Images/bigbite.png" alt="Big Bite Crankbaits Banner">
         </div>
+
         <div class="container">
+            <!-- Product 1 -->
             <div class="product">
-                <iframe src="https://youtube.com/embed/02eQOpUvIbM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://youtube.com/embed/02eQOpUvIbM" frameborder="0" allowfullscreen></iframe>
                 <h2>Red Dead Eye</h2>
                 <p>Price: $11.99</p>
                 <div class="images">
@@ -172,10 +155,12 @@ body {
                     <a href="Images/bait1_2.jpg" data-lightbox="bait1" data-title="Bait 1 Image 2"><img src="Images/bait1_2.jpg" alt="Bait 1 Image 2"></a>
                     <a href="Images/bait1_3.jpg" data-lightbox="bait1" data-title="Bait 1 Image 3"><img src="Images/bait1_3.jpg" alt="Bait 1 Image 3"></a>
                 </div>
-                <button >Sold Out</button>
+                <button>Sold Out</button>
             </div>
+
+            <!-- Product 2 -->
             <div class="product">
-                <iframe src="https://youtube.com/embed/06ihsBb1LbU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://youtube.com/embed/06ihsBb1LbU" frameborder="0" allowfullscreen></iframe>
                 <h2>HeadLights</h2>
                 <p>Price: $12.99</p>
                 <div class="images">
@@ -183,10 +168,12 @@ body {
                     <a href="Images/bait2_2.jpg" data-lightbox="bait2" data-title="Bait 2 Image 2"><img src="Images/bait2_2.jpg" alt="Bait 2 Image 2"></a>
                     <a href="Images/bait2_3.jpg" data-lightbox="bait2" data-title="Bait 2 Image 3"><img src="Images/bait2_3.jpg" alt="Bait 2 Image 3"></a>
                 </div>
-                <button >Sold Out</button>
+                <button>Sold Out</button>
             </div>
+
+            <!-- Product 3 -->
             <div class="product">
-                <iframe src="https://youtube.com/embed/AWbVVpbRbk4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://youtube.com/embed/AWbVVpbRbk4" frameborder="0" allowfullscreen></iframe>
                 <h2>Frey Guy</h2>
                 <p>Price: $12.99</p>
                 <div class="images">
@@ -196,8 +183,10 @@ body {
                 </div>
                 <button>Sold Out</button>
             </div>
+
+            <!-- Product 4 -->
             <div class="product">
-                <iframe src="https://youtube.com/embed/FE15iTcXpOA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://youtube.com/embed/FE15iTcXpOA" frameborder="0" allowfullscreen></iframe>
                 <h2>The Diggler</h2>
                 <p>Price: $12.99</p>
                 <div class="images">
@@ -205,10 +194,12 @@ body {
                     <a href="Images/bait4_2.jpg" data-lightbox="bait4" data-title="Bait 4 Image 2"><img src="Images/bait4_2.jpg" alt="Bait 4 Image 2"></a>
                     <a href="Images/bait4_3.jpg" data-lightbox="bait4" data-title="Bait 4 Image 3"><img src="Images/bait4_3.jpg" alt="Bait 4 Image 3"></a>
                 </div>
-                <button >Sold out</button>
+                <button>Sold Out</button>
             </div>
+
+            <!-- Product 5 -->
             <div class="product">
-                <iframe src="https://youtube.com/embed/RQnF7Wx1L_o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://youtube.com/embed/RQnF7Wx1L_o" frameborder="0" allowfullscreen></iframe>
                 <h2>Build A Crankbait Kit</h2>
                 <p>Price: $5.00</p>
                 <div class="images">
@@ -216,42 +207,25 @@ body {
                     <a href="Images/bait5_2.jpg" data-lightbox="bait5" data-title="Bait 5 Image 2"><img src="Images/bait5_2.jpg" alt="Bait 5 Image 2"></a>
                     <a href="Images/bait5_3.jpg" data-lightbox="bait5" data-title="Bait 5 Image 3"><img src="Images/bait5_3.jpg" alt="Bait 5 Image 3"></a>
                 </div>
-               
-                <style>.pp-JKE5XH4T77MYJ{text-align:center;border:none;border-radius:1.5rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}</style>
-<form action="https://www.paypal.com/ncp/payment/JKE5XH4T77MYJ" method="post" target="_top" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
-  <input class="pp-JKE5XH4T77MYJ" type="submit" value="Buy Now" />
-  <img src=https://www.paypalobjects.com/images/Debit_Credit_APM.svg alt="cards" />
-  <section> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
-</form>
+                <form action="https://www.paypal.com/ncp/payment/JKE5XH4T77MYJ" method="post" target="_top" style="margin-top:10px;">
+                    <input style="background-color:#FFD140;color:#000;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;" type="submit" value="Buy Now" />
+                </form>
             </div>
+
         </div>
     </div>
+
+    <div class="footer">
+        <p>Follow us: 
+            <a href="https://www.pinterest.com/BigBiteCrankbaits" target="_blank">Pinterest</a> | 
+            <a href="https://www.facebook.com/groups/bigbitecrankbaits" target="_blank">Facebook Group</a> | 
+            <a href="https://www.instagram.com/bigbitecrankbaits/" target="_blank">Instagram</a> | 
+            <a href="https://www.youtube.com/@wisconsinfishing772" target="_blank">YouTube</a>
+        </p>
+        <p>Copyright © 2025 Big Bite Crankbaits</p>
+    </div>
+    
+
     <script src="path/to/lightbox.js"></script>
-    <script>
-        function orderBait(bait) {
-            // Add PayPal link here
-            let paypalLink = '';
-            switch(bait) {
-                case 'bait1':
-                    paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX1';
-                    break;
-                case 'bait2':
-                    paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX2';
-                    break;
-                case 'bait3':
-                    paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX3';
-                    break;
-                case 'bait4':
-                    paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX4';
-                    break;
-                case 'bait5':
-                    paypalLink = 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XXXXXX5';
-                    break;
-                default:
-                    paypalLink = '';
-            }
-            window.location.href = paypalLink;
-        }
-    </script>
 </body>
 </html>
