@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.turbo/
+.env
+.env.local
+data/
+logs/
+browser-profile/
+audio/
+renders/
+clips/
+coverage/

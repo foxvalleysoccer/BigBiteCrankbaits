@@ -1,0 +1,17 @@
+{
+  "name": "fishing-buddy-video-factory",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @fishing-buddy/server",
+    "dev": "npm run dev --workspace @fishing-buddy/server",
+    "start": "npm run start --workspace @fishing-buddy/server",
+    "process:pending": "npm run process:pending --workspace @fishing-buddy/server"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
