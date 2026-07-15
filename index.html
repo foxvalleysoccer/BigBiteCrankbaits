@@ -42,6 +42,22 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
 .ecosystem-card strong { display: block; color: #111; margin-bottom: 8px; }
 .ecosystem-card span { color: #555; font-size: 0.92em; line-height: 1.35; }
 .ecosystem-card:hover { border-color: #FFD140; box-shadow: 0 0 0 2px rgba(255,209,64,.35); text-decoration: none; }
+.request-button, .request-action { background-color:#FFD140; color:#000; padding:10px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; font-size: 1em; text-decoration: none; display: inline-block; }
+.request-button:hover, .request-action:hover { background-color:#f0bf20; text-decoration: none; }
+.request-button { margin-top:10px; }
+.request-overlay { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; padding: 18px; background: rgba(0,0,0,.55); z-index: 20; }
+.request-overlay.is-open { display: flex; }
+.request-dialog { width: min(560px, 100%); background: #fff; color: #222; border-radius: 8px; box-shadow: 0 12px 40px rgba(0,0,0,.25); padding: 22px; text-align: left; }
+.request-dialog h2 { margin-bottom: 10px; font-size: 1.45em; color: #222; }
+.request-dialog p { color: #444; line-height: 1.45; margin-bottom: 12px; }
+.request-field { margin: 12px 0; }
+.request-field label { display:block; color:#333; font-weight:bold; margin-bottom:6px; }
+.request-value, .request-message { width:100%; border:1px solid #ccc; border-radius:6px; padding:10px; font: inherit; background:#fafafa; color:#222; }
+.request-message { min-height: 118px; resize: vertical; }
+.request-actions { display:flex; flex-wrap:wrap; gap:8px; margin-top: 14px; }
+.request-action.secondary { background:#333; color:#fff; }
+.request-action.light { background:#eee; color:#222; }
+.request-status { min-height: 1.2em; color:#2e7d32; font-size:.92em; margin-top:10px; }
 @media (max-width: 767px) { .page-wrapper { width: 95%; margin: 10px auto; padding: 0.5em; border-radius: 0; box-shadow: none; } .container { flex-direction: column; align-items: center; } .product { width: 90%; margin: 0.5em 0; padding: 1em; box-shadow: none; } .footer { width: 95%; } }
 @media (max-width: 900px) { .ecosystem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .ecosystem-grid { grid-template-columns: 1fr; } }
@@ -69,10 +85,7 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
                 <a href="Images/bait5_2.jpg" data-lightbox="bait5"><img src="Images/bait5_2.jpg" alt="Build A Crankbait Kit"></a>
                 <a href="Images/bait5_3.jpg" data-lightbox="bait5"><img src="Images/bait5_3.jpg" alt="Build A Crankbait Kit"></a>
             </div>
-            <form action="mailto:foxvalleysoccer@gmail.com" method="post" enctype="text/plain" style="margin-top:10px;">
-                <input type="hidden" name="subject" value="Big Bite CrankBaits - Build A Crankbait Kit Requested">
-                <input style="background-color:#FFD140;color:#000;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;" type="submit" value="Sold Out - Request Custom">
-            </form>
+            <button class="request-button" type="button" data-product="Build A Crankbait Kit">Sold Out - Request Custom</button>
         </div>
         
         <!-- Jaw Jacker -->
@@ -85,10 +98,7 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
                 <a href="Images/jawjacker_2.jpg" data-lightbox="jawjacker"><img src="Images/jawjacker_2.jpg" alt="Jaw Jacker"></a>
                 <a href="Images/jawjacker_3.jpg" data-lightbox="jawjacker"><img src="Images/jawjacker_3.jpg" alt="Jaw Jacker"></a>
             </div>
-            <form action="mailto:foxvalleysoccer@gmail.com" method="post" enctype="text/plain" style="margin-top:10px;">
-                <input type="hidden" name="subject" value="Big Bite CrankBaits - Custom Jaw Jackers Requested">
-                <input style="background-color:#FFD140;color:#000;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;" type="submit" value="Sold Out - Request Custom">
-            </form>
+            <button class="request-button" type="button" data-product="Custom Jaw Jackers">Sold Out - Request Custom</button>
         </div>
         
         <!-- The Dad Crankbait -->
@@ -100,10 +110,7 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
                 <a href="Images/DAD_1.jpg" data-lightbox="dad"><img src="Images/DAD_1.jpg" alt="The Dad Crankbait"></a>
                 <a href="Images/DAD_2.jpg" data-lightbox="dad"><img src="Images/DAD_2.jpg" alt="The Dad Crankbait"></a>
             </div>
-            <form action="mailto:foxvalleysoccer@gmail.com" method="post" enctype="text/plain" style="margin-top:10px;">
-                <input type="hidden" name="subject" value="Big Bite CrankBaits - The Dad Crankbait Requested">
-                <input style="background-color:#FFD140;color:#000;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;" type="submit" value="Sold Out - Request Custom">
-            </form>
+            <button class="request-button" type="button" data-product="The Dad Crankbait">Sold Out - Request Custom</button>
         </div>
         
         <div class="product">
@@ -115,10 +122,7 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
                 <a href="Images/bait6_2.png" data-lightbox="bait1"><img src="Images/bait6_2.png" alt="Custom Painted Bluegill"></a>
                 <a href="Images/bait6_3.png" data-lightbox="bait1"><img src="Images/bait6_3.png" alt="Custom Painted Bluegill"></a>
             </div>
-            <form action="mailto:foxvalleysoccer@gmail.com" method="post" enctype="text/plain" style="margin-top:10px;">
-                <input type="hidden" name="subject" value="Big Bite CrankBaits - Custom Bluegill Requested">
-                <input style="background-color:#FFD140;color:#000;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;" type="submit" value="Sold Out - Request Custom">
-            </form>
+            <button class="request-button" type="button" data-product="Custom Bluegill">Sold Out - Request Custom</button>
         </div>
         
         <div class="product">
@@ -197,6 +201,81 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
     <p>Copyright © 2025 Big Bite Crankbaits</p>
 </div>
 
+<div class="request-overlay" id="requestOverlay" aria-hidden="true">
+    <div class="request-dialog" role="dialog" aria-modal="true" aria-labelledby="requestTitle">
+        <h2 id="requestTitle">Request a Custom Bait</h2>
+        <p>Send this request to Big Bite Crankbaits. Copy the email and message into your preferred email or message app.</p>
+        <div class="request-field">
+            <label for="requestEmail">Email</label>
+            <input class="request-value" id="requestEmail" type="text" value="litlayercreations@gmail.com" readonly>
+        </div>
+        <div class="request-field">
+            <label for="requestMessage">Message</label>
+            <textarea class="request-message" id="requestMessage" readonly></textarea>
+        </div>
+        <div class="request-actions">
+            <button class="request-action" type="button" id="copyEmailButton">Copy Email</button>
+            <button class="request-action" type="button" id="copyMessageButton">Copy Message</button>
+            <a class="request-action secondary" id="emailLink" href="mailto:litlayercreations@gmail.com">Open Email</a>
+            <button class="request-action light" type="button" id="closeRequestButton">Close</button>
+        </div>
+        <div class="request-status" id="requestStatus" aria-live="polite"></div>
+    </div>
+</div>
+
 <script src="path/to/lightbox.js"></script>
+<script>
+const requestOverlay = document.getElementById('requestOverlay');
+const requestMessage = document.getElementById('requestMessage');
+const requestStatus = document.getElementById('requestStatus');
+const emailLink = document.getElementById('emailLink');
+const contactEmail = 'litlayercreations@gmail.com';
+
+function buildRequest(product) {
+    return `Subject: Big Bite CrankBaits - ${product} Requested\n\nHi Big Bite Crankbaits,\n\nI am interested in a custom ${product}. Please let me know what options are available.\n\nThanks!`;
+}
+
+function openRequest(product) {
+    const message = buildRequest(product);
+    requestMessage.value = message;
+    emailLink.href = `mailto:${contactEmail}?subject=${encodeURIComponent(`Big Bite CrankBaits - ${product} Requested`)}&body=${encodeURIComponent(message)}`;
+    requestStatus.textContent = '';
+    requestOverlay.classList.add('is-open');
+    requestOverlay.setAttribute('aria-hidden', 'false');
+    document.getElementById('copyEmailButton').focus();
+}
+
+function closeRequest() {
+    requestOverlay.classList.remove('is-open');
+    requestOverlay.setAttribute('aria-hidden', 'true');
+}
+
+async function copyText(text, label) {
+    try {
+        await navigator.clipboard.writeText(text);
+        requestStatus.textContent = `${label} copied.`;
+    } catch (error) {
+        requestStatus.textContent = `Select and copy the ${label.toLowerCase()} above.`;
+    }
+}
+
+document.querySelectorAll('.request-button').forEach((button) => {
+    button.addEventListener('click', () => openRequest(button.dataset.product));
+});
+
+document.getElementById('copyEmailButton').addEventListener('click', () => copyText(contactEmail, 'Email'));
+document.getElementById('copyMessageButton').addEventListener('click', () => copyText(requestMessage.value, 'Message'));
+document.getElementById('closeRequestButton').addEventListener('click', closeRequest);
+requestOverlay.addEventListener('click', (event) => {
+    if (event.target === requestOverlay) {
+        closeRequest();
+    }
+});
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && requestOverlay.classList.contains('is-open')) {
+        closeRequest();
+    }
+});
+</script>
 </body>
 </html>
