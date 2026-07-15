@@ -58,8 +58,23 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
 .request-action.secondary { background:#333; color:#fff; }
 .request-action.light { background:#eee; color:#222; }
 .request-status { min-height: 1.2em; color:#2e7d32; font-size:.92em; margin-top:10px; }
+.song-form-section { margin: 20px auto 32px; max-width: 980px; padding: 22px; border: 1px solid #ddd; border-radius: 10px; background: #fafafa; }
+.song-form-section p { color: #444; line-height: 1.5; }
+.song-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 16px; }
+.song-form-field { display: flex; flex-direction: column; gap: 6px; }
+.song-form-field.full-width { grid-column: 1 / -1; }
+.song-form-field label { font-weight: bold; color: #222; }
+.song-form-field input, .song-form-field select, .song-form-field textarea { width: 100%; padding: 11px; border: 1px solid #cfcfcf; border-radius: 8px; font: inherit; color: #222; background: #fff; }
+.song-form-field textarea { min-height: 130px; resize: vertical; }
+.song-form-help { margin-top: 10px; font-size: 0.92em; color: #666; }
+.song-form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+.song-form-button { background-color:#FFD140; color:#000; padding:12px 20px; border:none; border-radius:8px; cursor:pointer; font-weight:bold; font-size: 1em; }
+.song-form-button.secondary { background:#333; color:#fff; }
+.song-form-button.light { background:#e9e9e9; color:#222; }
+.song-form-status { min-height: 1.2em; margin-top: 12px; color: #2e7d32; font-size: 0.95em; }
 @media (max-width: 767px) { .page-wrapper { width: 95%; margin: 10px auto; padding: 0.5em; border-radius: 0; box-shadow: none; } .container { flex-direction: column; align-items: center; } .product { width: 90%; margin: 0.5em 0; padding: 1em; box-shadow: none; } .footer { width: 95%; } }
 @media (max-width: 900px) { .ecosystem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .song-form-grid { grid-template-columns: 1fr; } }
 @media (max-width: 520px) { .ecosystem-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -72,6 +87,72 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
     <div style="text-align:center; margin: 20px auto; max-width: 800px;">
         <p style="font-size: 1.2em; color: #333;">Welcome to Big Bite Crankbaits! We specialize in hand-crafted custom crankbaits built just for you. Order directly from our current baits, or contact us to customize a bait to match your personal style and fishing needs. Your next big catch starts here!</p>
     </div>
+
+    <section class="song-form-section" aria-labelledby="fishingBuddyTitle">
+        <h2 class="section-title" id="fishingBuddyTitle">Fishing Buddy Song Submission</h2>
+        <p>Tell the story, pick the style, and send a structured submission to Big Bite Crankbaits. This version works with the static site by building the email for you, so submissions can start right away without server hosting.</p>
+        <form id="fishingBuddyForm">
+            <div class="song-form-grid">
+                <div class="song-form-field">
+                    <label for="submitterName">Your Name</label>
+                    <input id="submitterName" name="submitterName" type="text" required>
+                </div>
+                <div class="song-form-field">
+                    <label for="submitterEmail">Your Email</label>
+                    <input id="submitterEmail" name="submitterEmail" type="email" required>
+                </div>
+                <div class="song-form-field">
+                    <label for="buddyName">Fishing Buddy Name</label>
+                    <input id="buddyName" name="buddyName" type="text" required>
+                </div>
+                <div class="song-form-field">
+                    <label for="musicStyle">Music Style</label>
+                    <select id="musicStyle" name="musicStyle" required>
+                        <option value="">Choose a style</option>
+                        <option>Country Roast</option>
+                        <option>Southern Rock</option>
+                        <option>Lake Party Anthem</option>
+                        <option>Classic Country Story Song</option>
+                        <option>Funny Acoustic Ballad</option>
+                    </select>
+                </div>
+                <div class="song-form-field">
+                    <label for="roastLevel">Roast Level</label>
+                    <select id="roastLevel" name="roastLevel" required>
+                        <option value="">Choose a roast level</option>
+                        <option>Light</option>
+                        <option>Medium</option>
+                        <option>Spicy but clean</option>
+                    </select>
+                </div>
+                <div class="song-form-field">
+                    <label for="lakeName">Lake or Location</label>
+                    <input id="lakeName" name="lakeName" type="text">
+                </div>
+                <div class="song-form-field full-width">
+                    <label for="storyDetails">Story Details</label>
+                    <textarea id="storyDetails" name="storyDetails" required placeholder="What happened on the water? Include funny details, habits, missed fish, gear problems, boat moments, or anything that makes the story yours."></textarea>
+                </div>
+                <div class="song-form-field full-width">
+                    <label for="extraDetails">Extra Notes</label>
+                    <textarea id="extraDetails" name="extraDetails" placeholder="Optional: favorite phrases, lure names, people to mention, details to avoid, or anything else helpful."></textarea>
+                </div>
+                <div class="song-form-field full-width">
+                    <label>
+                        <input id="submissionConsent" name="submissionConsent" type="checkbox" required>
+                        I confirm this story is submitted for a comedic fishing song and review, and I have permission to share it.
+                    </label>
+                </div>
+            </div>
+            <p class="song-form-help">When you submit, the site opens a prefilled email addressed to <strong>litlayercreations@gmail.com</strong>. That keeps the intake working on GitHub Pages while the local queue system is being built.</p>
+            <div class="song-form-actions">
+                <button class="song-form-button" type="submit">Send Submission</button>
+                <button class="song-form-button secondary" type="button" id="copySongSubmissionButton">Copy Submission</button>
+                <button class="song-form-button light" type="reset">Clear</button>
+            </div>
+            <div class="song-form-status" id="songFormStatus" aria-live="polite"></div>
+        </form>
+    </section>
 
     <h2 class="section-title">Past Baits (Sold Out)</h2>
     <div class="container">
@@ -230,6 +311,33 @@ const requestMessage = document.getElementById('requestMessage');
 const requestStatus = document.getElementById('requestStatus');
 const emailLink = document.getElementById('emailLink');
 const contactEmail = 'litlayercreations@gmail.com';
+const fishingBuddyForm = document.getElementById('fishingBuddyForm');
+const songFormStatus = document.getElementById('songFormStatus');
+
+function buildSongSubmission() {
+    const formData = new FormData(fishingBuddyForm);
+    const submissionId = `FB-${Date.now()}`;
+
+    return {
+        subject: `Fishing Buddy Submission - ${formData.get('buddyName')}`,
+        body: [
+            `SUBMISSION_ID: ${submissionId}`,
+            `REQUESTER_NAME: ${formData.get('submitterName')}`,
+            `REQUESTER_EMAIL: ${formData.get('submitterEmail')}`,
+            `BUDDY_NAME: ${formData.get('buddyName')}`,
+            `MUSIC_STYLE: ${formData.get('musicStyle')}`,
+            `ROAST_LEVEL: ${formData.get('roastLevel')}`,
+            `LAKE_NAME: ${formData.get('lakeName') || 'Not provided'}`,
+            'STORY_BEGIN',
+            `${formData.get('storyDetails')}`,
+            'STORY_END',
+            'EXTRA_NOTES_BEGIN',
+            `${formData.get('extraDetails') || 'None provided'}`,
+            'EXTRA_NOTES_END',
+            'CONSENT_ACCEPTED: YES'
+        ].join('\n')
+    };
+}
 
 function buildRequest(product) {
     return `Subject: Big Bite CrankBaits - ${product} Requested\n\nHi Big Bite Crankbaits,\n\nI am interested in a custom ${product}. Please let me know what options are available.\n\nThanks!`;
@@ -274,6 +382,33 @@ requestOverlay.addEventListener('click', (event) => {
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && requestOverlay.classList.contains('is-open')) {
         closeRequest();
+    }
+});
+
+fishingBuddyForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    if (!fishingBuddyForm.reportValidity()) {
+        return;
+    }
+
+    const submission = buildSongSubmission();
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(submission.subject)}&body=${encodeURIComponent(submission.body)}`;
+    songFormStatus.textContent = 'Submission email opened. If nothing appeared, use Copy Submission and paste it into Gmail.';
+});
+
+document.getElementById('copySongSubmissionButton').addEventListener('click', async () => {
+    if (!fishingBuddyForm.reportValidity()) {
+        return;
+    }
+
+    const submission = buildSongSubmission();
+
+    try {
+        await navigator.clipboard.writeText(`Subject: ${submission.subject}\n\n${submission.body}`);
+        songFormStatus.textContent = 'Structured submission copied.';
+    } catch (error) {
+        songFormStatus.textContent = 'Unable to copy automatically. Select the form details and paste them into Gmail.';
     }
 });
 </script>
