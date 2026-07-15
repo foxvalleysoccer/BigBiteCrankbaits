@@ -16,6 +16,7 @@ This folder is the local-first implementation scaffold for the submission-to-son
 - `docs/architecture.md` - local-first architecture summary
 - `scripts/process-pending-submissions.ps1` - operator command wrapper
 - `config/.env.example` - starting point for local configuration
+- `apps/server/src/submission-intake.ts` - file-backed intake endpoint and pending submission storage
 
 ## Intended First Commands
 
@@ -34,3 +35,11 @@ The server is intentionally designed so Josh can either:
 - tell Codex to invoke the local process
 
 without changing the underlying workflow implementation.
+
+## Current Intake Endpoint
+
+When the local server is running, it exposes:
+
+- `POST /api/submissions/fishing-buddy`
+
+That gives the public form a real structured intake target to use when Josh later places the local service behind a secure tunnel or another controlled route. Until then, the website still falls back to the prefilled Gmail draft flow.

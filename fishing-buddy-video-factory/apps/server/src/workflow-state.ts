@@ -15,7 +15,14 @@ export type WorkflowState = (typeof workflowStates)[number];
 
 export type SubmissionRecord = {
   id: string;
+  requesterName: string;
+  requesterEmail: string;
   buddyName: string;
   musicStyle: string;
+  roastLevel: string;
+  lakeName: string;
+  storyDetails: string;
+  extraDetails: string;
   state: WorkflowState;
+  createdAt: string;
 };

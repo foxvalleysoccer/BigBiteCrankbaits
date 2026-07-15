@@ -72,6 +72,7 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
 .song-form-button.secondary { background:#333; color:#fff; }
 .song-form-button.light { background:#e9e9e9; color:#222; }
 .song-form-status { min-height: 1.2em; margin-top: 12px; color: #2e7d32; font-size: 0.95em; }
+.song-form-status.is-error { color: #b3261e; }
 @media (max-width: 767px) { .page-wrapper { width: 95%; margin: 10px auto; padding: 0.5em; border-radius: 0; box-shadow: none; } .container { flex-direction: column; align-items: center; } .product { width: 90%; margin: 0.5em 0; padding: 1em; box-shadow: none; } .footer { width: 95%; } }
 @media (max-width: 900px) { .ecosystem-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 700px) { .song-form-grid { grid-template-columns: 1fr; } }
@@ -90,8 +91,8 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
 
     <section class="song-form-section" aria-labelledby="fishingBuddyTitle">
         <h2 class="section-title" id="fishingBuddyTitle">Fishing Buddy Song Submission</h2>
-        <p>Tell the story, pick the style, and send a structured submission to Big Bite Crankbaits. This version works with the static site by building the email for you, so submissions can start right away without server hosting.</p>
-        <form id="fishingBuddyForm">
+        <p>Tell the story, pick the style, and send a structured submission to Big Bite Crankbaits. If the local intake service is online, the form sends directly into the workflow queue. If not, it falls back to a prefilled Gmail draft.</p>
+        <form id="fishingBuddyForm" data-intake-endpoint="">
             <div class="song-form-grid">
                 <div class="song-form-field">
                     <label for="submitterName">Your Name</label>
@@ -144,7 +145,7 @@ body { font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex;
                     </label>
                 </div>
             </div>
-            <p class="song-form-help">When you submit, the site opens a prefilled email addressed to <strong>litlayercreations@gmail.com</strong>. That keeps the intake working on GitHub Pages while the local queue system is being built.</p>
+            <p class="song-form-help">Set the form's intake endpoint when the always-on PC is ready to receive submissions. Until then, the form falls back to a prefilled email addressed to <strong>litlayercreations@gmail.com</strong>.</p>
             <div class="song-form-actions">
                 <button class="song-form-button" type="submit">Send Submission</button>
                 <button class="song-form-button secondary" type="button" id="copySongSubmissionButton">Copy Submission</button>
@@ -313,6 +314,7 @@ const emailLink = document.getElementById('emailLink');
 const contactEmail = 'litlayercreations@gmail.com';
 const fishingBuddyForm = document.getElementById('fishingBuddyForm');
 const songFormStatus = document.getElementById('songFormStatus');
+const configuredIntakeEndpoint = fishingBuddyForm.dataset.intakeEndpoint.trim();
 
 function buildSongSubmission() {
     const formData = new FormData(fishingBuddyForm);
@@ -335,8 +337,49 @@ function buildSongSubmission() {
             `${formData.get('extraDetails') || 'None provided'}`,
             'EXTRA_NOTES_END',
             'CONSENT_ACCEPTED: YES'
-        ].join('\n')
+        ].join('\n'),
+        payload: {
+            requesterName: `${formData.get('submitterName')}`.trim(),
+            requesterEmail: `${formData.get('submitterEmail')}`.trim(),
+            buddyName: `${formData.get('buddyName')}`.trim(),
+            musicStyle: `${formData.get('musicStyle')}`.trim(),
+            roastLevel: `${formData.get('roastLevel')}`.trim(),
+            lakeName: `${formData.get('lakeName') || ''}`.trim(),
+            storyDetails: `${formData.get('storyDetails')}`.trim(),
+            extraDetails: `${formData.get('extraDetails') || ''}`.trim(),
+            consentAccepted: true
+        }
     };
+}
+
+async function submitToConfiguredEndpoint(submission) {
+    if (!configuredIntakeEndpoint) {
+        return false;
+    }
+
+    const response = await fetch(configuredIntakeEndpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(submission.payload)
+    });
+
+    if (!response.ok) {
+        throw new Error(`Endpoint returned ${response.status}`);
+    }
+
+    const result = await response.json();
+    songFormStatus.classList.remove('is-error');
+    songFormStatus.textContent = `Submission received by the local intake service. ID: ${result.submissionId}`;
+    fishingBuddyForm.reset();
+    return true;
+}
+
+function openSubmissionEmail(submission) {
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(submission.subject)}&body=${encodeURIComponent(submission.body)}`;
+    songFormStatus.classList.remove('is-error');
+    songFormStatus.textContent = 'Submission email opened. If nothing appeared, use Copy Submission and paste it into Gmail.';
 }
 
 function buildRequest(product) {
@@ -385,7 +428,7 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-fishingBuddyForm.addEventListener('submit', (event) => {
+fishingBuddyForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     if (!fishingBuddyForm.reportValidity()) {
@@ -393,8 +436,17 @@ fishingBuddyForm.addEventListener('submit', (event) => {
     }
 
     const submission = buildSongSubmission();
-    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(submission.subject)}&body=${encodeURIComponent(submission.body)}`;
-    songFormStatus.textContent = 'Submission email opened. If nothing appeared, use Copy Submission and paste it into Gmail.';
+
+    try {
+        const submitted = await submitToConfiguredEndpoint(submission);
+        if (!submitted) {
+            openSubmissionEmail(submission);
+        }
+    } catch (error) {
+        songFormStatus.classList.add('is-error');
+        songFormStatus.textContent = 'Local intake was unavailable, so the form is falling back to Gmail draft mode.';
+        openSubmissionEmail(submission);
+    }
 });
 
 document.getElementById('copySongSubmissionButton').addEventListener('click', async () => {
@@ -406,8 +458,10 @@ document.getElementById('copySongSubmissionButton').addEventListener('click', as
 
     try {
         await navigator.clipboard.writeText(`Subject: ${submission.subject}\n\n${submission.body}`);
+        songFormStatus.classList.remove('is-error');
         songFormStatus.textContent = 'Structured submission copied.';
     } catch (error) {
+        songFormStatus.classList.add('is-error');
         songFormStatus.textContent = 'Unable to copy automatically. Select the form details and paste them into Gmail.';
     }
 });

@@ -18,6 +18,7 @@ export type FactoryConfig = {
   dataRoot: string;
   sqlitePath: string;
   scheduledPolling: boolean;
+  corsOrigin: string;
 };
 
 export function loadConfig(): FactoryConfig {
@@ -27,6 +28,7 @@ export function loadConfig(): FactoryConfig {
     port: Number(process.env.PORT ?? 4307),
     dataRoot,
     sqlitePath: readString("SQLITE_PATH", path.join(dataRoot, "factory.db")),
-    scheduledPolling: readBoolean("ENABLE_SCHEDULED_POLLING", false)
+    scheduledPolling: readBoolean("ENABLE_SCHEDULED_POLLING", false),
+    corsOrigin: readString("CORS_ORIGIN", "*")
   };
 }
