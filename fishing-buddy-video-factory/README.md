@@ -43,3 +43,19 @@ When the local server is running, it exposes:
 - `POST /api/submissions/fishing-buddy`
 
 That gives the public form a real structured intake target to use when Josh later places the local service behind a secure tunnel or another controlled route. Until then, the website still falls back to the prefilled Gmail draft flow.
+
+## Zero-Install Bootstrap Path
+
+Because some machines may not have Node.js and npm configured yet, there is also a no-dependency bootstrap server:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\start-local-server.ps1
+```
+
+That bootstrap server uses a local `node.exe` if one is available and exposes:
+
+- `GET /health`
+- `POST /api/submissions/fishing-buddy`
+- `POST /operator/process-pending-submissions`
+
+It stores queued submissions in `fishing-buddy-video-factory/data/submissions.json`.
