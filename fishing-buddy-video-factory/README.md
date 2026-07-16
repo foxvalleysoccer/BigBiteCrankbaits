@@ -82,3 +82,33 @@ powershell -ExecutionPolicy Bypass -File .\scripts\import-gmail-submissions.ps1
 ```
 
 This is the bridge step between static-site email intake and the fully local queue.
+
+## Real Gmail Polling Scaffold
+
+The import action now supports two modes under the same operator command:
+
+- direct Gmail API polling when Google OAuth refresh-token credentials are configured
+- fallback intake-folder import when Gmail credentials are not configured yet
+
+Environment variables for real mailbox polling:
+
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `GOOGLE_REFRESH_TOKEN`
+- optional `GMAIL_QUERY`
+- optional `GMAIL_MAX_RESULTS`
+
+Recommended Gmail query:
+
+```text
+label:FishingBuddySubmission is:unread
+```
+
+Once those credentials are present, the import action will:
+
+1. query Gmail for matching messages
+2. extract the plain-text body
+3. write each new message into the local intake folder
+4. run the same structured import path already tested locally
+
+That keeps Gmail polling and the file-drop fallback on the same parser and queue flow.

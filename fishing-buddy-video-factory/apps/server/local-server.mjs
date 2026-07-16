@@ -10,8 +10,14 @@ const submissionsFile = join(dataRoot, "submissions.json");
 const intakeDir = join(dataRoot, "gmail-intake");
 const processedDir = join(dataRoot, "gmail-processed");
 const rejectedDir = join(dataRoot, "gmail-rejected");
+const gmailStateFile = join(dataRoot, "gmail-message-state.json");
 const port = Number(process.env.PORT || 4307);
 const corsOrigin = process.env.CORS_ORIGIN || "*";
+const gmailQuery = process.env.GMAIL_QUERY || "label:FishingBuddySubmission is:unread";
+const gmailMaxResults = Number(process.env.GMAIL_MAX_RESULTS || 10);
+const googleClientId = process.env.GOOGLE_CLIENT_ID || "";
+const googleClientSecret = process.env.GOOGLE_CLIENT_SECRET || "";
+const googleRefreshToken = process.env.GOOGLE_REFRESH_TOKEN || "";
 
 function sendJson(response, statusCode, payload) {
   response.writeHead(statusCode, {
@@ -93,6 +99,169 @@ async function listPendingSubmissions() {
   return store.submissions.filter((submission) => submission.state === "RECEIVED");
 }
 
+function hasGmailCredentials() {
+  return Boolean(googleClientId && googleClientSecret && googleRefreshToken);
+}
+
+function decodeBase64Url(value) {
+  const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
+  return Buffer.from(normalized, "base64").toString("utf8");
+}
+
+function extractPlainText(payload) {
+  if (!payload) {
+    return "";
+  }
+
+  if (payload.mimeType === "text/plain" && payload.body?.data) {
+    return decodeBase64Url(payload.body.data);
+  }
+
+  for (const part of payload.parts ?? []) {
+    const nested = extractPlainText(part);
+    if (nested) {
+      return nested;
+    }
+  }
+
+  if (payload.body?.data) {
+    return decodeBase64Url(payload.body.data);
+  }
+
+  return "";
+}
+
+async function readSeenMessageIds() {
+  try {
+    const raw = await readFile(gmailStateFile, "utf8");
+    const parsed = JSON.parse(raw);
+    return new Set(parsed.seenMessageIds ?? []);
+  } catch {
+    return new Set();
+  }
+}
+
+async function writeSeenMessageIds(ids) {
+  await writeFile(gmailStateFile, JSON.stringify({ seenMessageIds: [...ids] }, null, 2));
+}
+
+async function refreshAccessToken() {
+  const response = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: new URLSearchParams({
+      client_id: googleClientId,
+      client_secret: googleClientSecret,
+      refresh_token: googleRefreshToken,
+      grant_type: "refresh_token"
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Token refresh failed with status ${response.status}`);
+  }
+
+  const payload = await response.json();
+  if (!payload.access_token) {
+    throw new Error("No access token returned from Google.");
+  }
+
+  return payload.access_token;
+}
+
+async function listMatchingMessages(accessToken) {
+  const url = new URL("https://gmail.googleapis.com/gmail/v1/users/me/messages");
+  url.searchParams.set("q", gmailQuery);
+  url.searchParams.set("maxResults", String(gmailMaxResults));
+
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Gmail list failed with status ${response.status}`);
+  }
+
+  const payload = await response.json();
+  return (payload.messages ?? []).map((message) => message.id);
+}
+
+async function fetchMessageBody(accessToken, messageId) {
+  const response = await fetch(
+    `https://gmail.googleapis.com/gmail/v1/users/me/messages/${messageId}?format=full`,
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Gmail message fetch failed with status ${response.status}`);
+  }
+
+  const payload = await response.json();
+  return extractPlainText(payload.payload);
+}
+
+async function fetchStructuredGmailMessagesToIntake() {
+  if (!hasGmailCredentials()) {
+    return {
+      enabled: false,
+      fetchedCount: 0,
+      skippedCount: 0,
+      fetched: [],
+      skipped: []
+    };
+  }
+
+  await mkdir(intakeDir, { recursive: true });
+
+  const accessToken = await refreshAccessToken();
+  const seenIds = await readSeenMessageIds();
+  const messageIds = await listMatchingMessages(accessToken);
+  const result = {
+    enabled: true,
+    fetchedCount: 0,
+    skippedCount: 0,
+    fetched: [],
+    skipped: []
+  };
+
+  for (const messageId of messageIds) {
+    if (seenIds.has(messageId)) {
+      result.skippedCount += 1;
+      result.skipped.push({
+        messageId,
+        reason: "Already fetched locally."
+      });
+      continue;
+    }
+
+    const body = await fetchMessageBody(accessToken, messageId);
+    if (!body.trim()) {
+      result.skippedCount += 1;
+      result.skipped.push({
+        messageId,
+        reason: "No readable plain-text body."
+      });
+      continue;
+    }
+
+    await writeFile(join(intakeDir, `${messageId}.txt`), body);
+    seenIds.add(messageId);
+    result.fetchedCount += 1;
+    result.fetched.push(messageId);
+  }
+
+  await writeSeenMessageIds(seenIds);
+  return result;
+}
+
 function readSingleLineField(body, fieldName) {
   const expression = new RegExp(`^${fieldName}:\\s*(.*)$`, "mi");
   const match = body.match(expression);
@@ -143,12 +312,14 @@ function parseStructuredEmailSubmission(body) {
 }
 
 async function importStructuredEmailSubmissions() {
+  const fetch = await fetchStructuredGmailMessagesToIntake();
   await mkdir(intakeDir, { recursive: true });
   await mkdir(processedDir, { recursive: true });
   await mkdir(rejectedDir, { recursive: true });
 
   const files = await readDirectorySafe(intakeDir);
   const result = {
+    fetch,
     importedCount: 0,
     skippedCount: 0,
     imported: [],

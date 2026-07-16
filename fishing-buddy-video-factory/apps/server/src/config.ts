@@ -19,6 +19,11 @@ export type FactoryConfig = {
   sqlitePath: string;
   scheduledPolling: boolean;
   corsOrigin: string;
+  gmailQuery: string;
+  gmailMaxResults: number;
+  googleClientId: string;
+  googleClientSecret: string;
+  googleRefreshToken: string;
 };
 
 export function loadConfig(): FactoryConfig {
@@ -29,6 +34,11 @@ export function loadConfig(): FactoryConfig {
     dataRoot,
     sqlitePath: readString("SQLITE_PATH", path.join(dataRoot, "factory.db")),
     scheduledPolling: readBoolean("ENABLE_SCHEDULED_POLLING", false),
-    corsOrigin: readString("CORS_ORIGIN", "*")
+    corsOrigin: readString("CORS_ORIGIN", "*"),
+    gmailQuery: readString("GMAIL_QUERY", "label:FishingBuddySubmission is:unread"),
+    gmailMaxResults: Number(process.env.GMAIL_MAX_RESULTS ?? 10),
+    googleClientId: readString("GOOGLE_CLIENT_ID", ""),
+    googleClientSecret: readString("GOOGLE_CLIENT_SECRET", ""),
+    googleRefreshToken: readString("GOOGLE_REFRESH_TOKEN", "")
   };
 }

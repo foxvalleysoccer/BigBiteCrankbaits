@@ -2,9 +2,11 @@ import { mkdir, readdir, readFile, rename } from "node:fs/promises";
 import path from "node:path";
 import { loadConfig } from "./config.js";
 import { parseStructuredEmailSubmission } from "./email-submission-parser.js";
+import { fetchStructuredGmailMessagesToIntake, type GmailFetchResult } from "./gmail-poll.js";
 import { saveSubmission } from "./submission-intake.js";
 
 export type GmailImportResult = {
+  fetch: GmailFetchResult;
   importedCount: number;
   skippedCount: number;
   imported: Array<{
@@ -29,10 +31,12 @@ async function ensureDirectories(): Promise<void> {
 }
 
 export async function importStructuredEmailSubmissions(): Promise<GmailImportResult> {
+  const fetch = await fetchStructuredGmailMessagesToIntake();
   await ensureDirectories();
 
   const files = await readdir(intakeDir);
   const result: GmailImportResult = {
+    fetch,
     importedCount: 0,
     skippedCount: 0,
     imported: [],
