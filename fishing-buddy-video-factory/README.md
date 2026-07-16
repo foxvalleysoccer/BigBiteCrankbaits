@@ -41,6 +41,7 @@ without changing the underlying workflow implementation.
 When the local server is running, it exposes:
 
 - `POST /api/submissions/fishing-buddy`
+- `POST /operator/import-gmail-submissions`
 
 That gives the public form a real structured intake target to use when Josh later places the local service behind a secure tunnel or another controlled route. Until then, the website still falls back to the prefilled Gmail draft flow.
 
@@ -59,3 +60,25 @@ That bootstrap server uses a local `node.exe` if one is available and exposes:
 - `POST /operator/process-pending-submissions`
 
 It stores queued submissions in `fishing-buddy-video-factory/data/submissions.json`.
+
+## Structured Gmail Import
+
+The website form already builds a structured email body. The local workflow can now import those email-style submissions from files placed in:
+
+- `fishing-buddy-video-factory/data/gmail-intake/`
+
+Imported files are moved to:
+
+- `fishing-buddy-video-factory/data/gmail-processed/`
+
+Rejected files are moved to:
+
+- `fishing-buddy-video-factory/data/gmail-rejected/`
+
+Manual import command:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\import-gmail-submissions.ps1
+```
+
+This is the bridge step between static-site email intake and the fully local queue.

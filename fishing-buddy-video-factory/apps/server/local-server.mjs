@@ -1,5 +1,5 @@
 import { createServer } from "node:http";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, rename, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -7,6 +7,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, "..", "..");
 const dataRoot = process.env.FACTORY_DATA_ROOT || join(projectRoot, "data");
 const submissionsFile = join(dataRoot, "submissions.json");
+const intakeDir = join(dataRoot, "gmail-intake");
+const processedDir = join(dataRoot, "gmail-processed");
+const rejectedDir = join(dataRoot, "gmail-rejected");
 const port = Number(process.env.PORT || 4307);
 const corsOrigin = process.env.CORS_ORIGIN || "*";
 
@@ -90,6 +93,103 @@ async function listPendingSubmissions() {
   return store.submissions.filter((submission) => submission.state === "RECEIVED");
 }
 
+function readSingleLineField(body, fieldName) {
+  const expression = new RegExp(`^${fieldName}:\\s*(.*)$`, "mi");
+  const match = body.match(expression);
+  return match?.[1]?.trim() ?? "";
+}
+
+function readMarkerBlock(body, startMarker, endMarker) {
+  const startIndex = body.indexOf(startMarker);
+  const endIndex = body.indexOf(endMarker);
+
+  if (startIndex === -1 || endIndex === -1 || endIndex <= startIndex) {
+    return "";
+  }
+
+  return body
+    .slice(startIndex + startMarker.length, endIndex)
+    .trim();
+}
+
+function parseStructuredEmailSubmission(body) {
+  const parsed = {
+    sourceSubmissionId: readSingleLineField(body, "SUBMISSION_ID"),
+    requesterName: readSingleLineField(body, "REQUESTER_NAME"),
+    requesterEmail: readSingleLineField(body, "REQUESTER_EMAIL"),
+    buddyName: readSingleLineField(body, "BUDDY_NAME"),
+    musicStyle: readSingleLineField(body, "MUSIC_STYLE"),
+    roastLevel: readSingleLineField(body, "ROAST_LEVEL"),
+    lakeName: readSingleLineField(body, "LAKE_NAME"),
+    storyDetails: readMarkerBlock(body, "STORY_BEGIN", "STORY_END"),
+    extraDetails: readMarkerBlock(body, "EXTRA_NOTES_BEGIN", "EXTRA_NOTES_END"),
+    consentAccepted: readSingleLineField(body, "CONSENT_ACCEPTED").toUpperCase() === "YES"
+  };
+
+  if (
+    !parsed.sourceSubmissionId ||
+    !parsed.requesterName ||
+    !parsed.requesterEmail ||
+    !parsed.buddyName ||
+    !parsed.musicStyle ||
+    !parsed.roastLevel ||
+    !parsed.storyDetails ||
+    !parsed.consentAccepted
+  ) {
+    return null;
+  }
+
+  return parsed;
+}
+
+async function importStructuredEmailSubmissions() {
+  await mkdir(intakeDir, { recursive: true });
+  await mkdir(processedDir, { recursive: true });
+  await mkdir(rejectedDir, { recursive: true });
+
+  const files = await readDirectorySafe(intakeDir);
+  const result = {
+    importedCount: 0,
+    skippedCount: 0,
+    imported: [],
+    skipped: []
+  };
+
+  for (const file of files) {
+    const sourcePath = join(intakeDir, file);
+    const raw = await readFile(sourcePath, "utf8");
+    const parsed = parseStructuredEmailSubmission(raw);
+
+    if (!parsed) {
+      await rename(sourcePath, join(rejectedDir, file));
+      result.skippedCount += 1;
+      result.skipped.push({
+        emailFile: file,
+        reason: "Missing required structured markers."
+      });
+      continue;
+    }
+
+    const submission = await createSubmission(parsed);
+    await rename(sourcePath, join(processedDir, file));
+    result.importedCount += 1;
+    result.imported.push({
+      emailFile: file,
+      submissionId: submission.id
+    });
+  }
+
+  return result;
+}
+
+async function readDirectorySafe(targetPath) {
+  try {
+    return await readdir(targetPath);
+  } catch {
+    return [];
+  }
+}
+
 const transitionPath = [
   "VALIDATING",
   "LYRICS_GENERATING",
@@ -164,6 +264,15 @@ const server = createServer(async (request, response) => {
     sendJson(response, 200, {
       processedCount: processed.length,
       processed
+    });
+    return;
+  }
+
+  if (request.method === "POST" && request.url === "/operator/import-gmail-submissions") {
+    const result = await importStructuredEmailSubmissions();
+    sendJson(response, 200, {
+      ok: true,
+      ...result
     });
     return;
   }

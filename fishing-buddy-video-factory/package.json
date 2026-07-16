@@ -9,7 +9,8 @@
     "build": "npm run build --workspace @fishing-buddy/server",
     "dev": "npm run dev --workspace @fishing-buddy/server",
     "start": "npm run start --workspace @fishing-buddy/server",
-    "process:pending": "npm run process:pending --workspace @fishing-buddy/server"
+    "process:pending": "npm run process:pending --workspace @fishing-buddy/server",
+    "import:gmail": "npm run import:gmail --workspace @fishing-buddy/server"
   },
   "engines": {
     "node": ">=22"

@@ -7,7 +7,8 @@
     "build": "tsc -p tsconfig.json",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.js",
-    "process:pending": "tsx src/process-pending-cli.ts"
+    "process:pending": "tsx src/process-pending-cli.ts",
+    "import:gmail": "tsx src/import-gmail-cli.ts"
   },
   "dependencies": {
     "fastify": "^5.0.0"

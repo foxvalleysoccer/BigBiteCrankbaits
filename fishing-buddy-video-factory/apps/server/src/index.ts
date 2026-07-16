@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import { loadConfig } from "./config.js";
+import { importStructuredEmailSubmissions } from "./gmail-import.js";
 import { processPendingSubmissions } from "./process-pending-submissions.js";
 import { saveSubmission, type FishingBuddySubmissionInput } from "./submission-intake.js";
 
@@ -59,6 +60,15 @@ app.post("/operator/process-pending-submissions", async () => {
   return {
     processedCount: processed.length,
     processed
+  };
+});
+
+app.post("/operator/import-gmail-submissions", async () => {
+  const result = await importStructuredEmailSubmissions();
+
+  return {
+    ok: true,
+    ...result
   };
 });
 
